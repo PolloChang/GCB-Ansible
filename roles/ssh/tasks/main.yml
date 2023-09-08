@@ -1,3 +1,9 @@
 ---
   - include_tasks: TWGCB-set-ssh-config.yml
   - include_tasks: TWGCB-01-008-0264.yml
+  - include_tasks: TWGCB-01-008-0265.yml
+  - include_tasks: TWGCB-01-008-0266.yml
+  - include_tasks: TWGCB-01-008-0267.yml
+  - include_tasks: TWGCB-01-008-0268.yml
+  - include_tasks: TWGCB-01-008-0269.yml
+  - include_tasks: TWGCB-01-008-0270.yml
