@@ -1,0 +1,25 @@
+---
+- name: restart sshd with service
+  become: true
+  service:
+    enabled: yes # TWGCB-01-008-0262
+    state: restarted
+    name: sshd
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "6"
+
+- name: restart sshd with systemd CentOS-7
+  become: true
+  systemd:
+    enabled: yes # TWGCB-01-008-0262
+    state: restarted
+    name: sshd
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+
+- name: restart sshd with systemd OracleLinux-9
+  become: true
+  systemd:
+    enabled: yes # TWGCB-01-008-0262
+    state: restarted
+    name: sshd
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+

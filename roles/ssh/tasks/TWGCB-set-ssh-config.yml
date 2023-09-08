@@ -1,0 +1,12 @@
+# TWGCB-01-008-0263,TWGCB-01-008-0271 到 TWGCB-01-008-0289
+---
+- name: push /etc/ssh/sshd_config
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/ssh/sshd_config.d/gcb.conf
+    dest: /etc/ssh/sshd_config.d
+    owner: root
+    group: root
+    mode: 0600
+
+- include_tasks: ./tasks/restart-sshd.yml

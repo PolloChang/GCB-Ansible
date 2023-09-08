@@ -1,0 +1,9 @@
+- name: TWGCB-01-008-0264
+  become: true
+  file:
+    path: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0600'
+
+- include_tasks: ./tasks/restart-sshd.yml

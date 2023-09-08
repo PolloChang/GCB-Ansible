@@ -2,6 +2,11 @@
 
 GCB-Ansible-2.0是依據「政府組態基準(GCB) - 國家資通安全研究院」 作業系統說明文件： TWGCB-01-008_Red Hat Enterprise Linux 8政府組態基準說明文件v1.0_1100924.pdf 撰寫 。
 
+## 執行環境
+
+* OS: Debian11
+* ansible version: ansible 2.10.8
+
 ## 部屬環境
 
 * OS: Oracle-Linux-9
@@ -41,6 +46,21 @@ ssh-copy-id -i .ssh/id_rsa ansible@10.192.3.100
 
 ```bash
 ssh -i .ssh/id_rsa ansible@10.192.3.100
+```
+
+### log 設定
+
+```bash
+mkdir -p logs
+touch logs/ansible.log
+```
+
+## tools
+
+### 檢查部屬OS版本資訊
+
+```bash
+ansible-playbook check-os-version.yml -i inventorys/develop
 ```
 
 ## 安裝 OS 時設定
