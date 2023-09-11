@@ -1,0 +1,46 @@
+- name: TWGCB-01-008-0061
+  become: true
+  ignore_errors: true
+  command: find "{{ item }}" -xdev -type f -perm -0002
+  register: command_output
+
+- debug:
+    var: command_output.stdout_lines
+
+- name: TWGCB-01-008-0062
+  become: true
+  ignore_errors: true
+  command: find "{{ item }}" -xdev -nouser
+  register: command_output
+
+- debug:
+    var: command_output.stdout_lines
+
+- name: TWGCB-01-008-0063
+  become: true
+  ignore_errors: true
+  command: find "{{ item }}" -xdev -nogroup
+  register: command_output
+
+- debug:
+    var: command_output.stdout_lines
+
+- name: TWGCB-01-008-0064
+  become: true
+  ignore_errors: true
+  command: find "{{ item }}" -xdev -type d -perm -0002 -uid +999 -print
+  register: command_output
+
+- debug:
+    var: command_output.stdout_lines
+
+- name: TWGCB-01-008-0065
+  become: true
+  ignore_errors: true
+  command: find "{{ item }}" -xdev -type d -perm -0002 -gid +999 -print
+  register: command_output
+  with_items:
+    "{{ partition_list }}"
+
+- debug:
+    var: command_output.stdout_lines

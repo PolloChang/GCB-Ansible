@@ -1,52 +1,8 @@
 # 排程處理項目
-- name: TWGCB-01-008-0061
-  become: true
-  command: find (partition) -xdev -type f -perm -0002
-  ignore_errors: true
-  register: command_output
-
-- debug:
-    var: command_output.stdout_lines
-
-- name: TWGCB-01-008-0062
-  become: true
-  command: find (partition) -xdev -nouser
-  ignore_errors: true
-  register: command_output
-
-- debug:
-    var: command_output.stdout_lines
-
-- name: TWGCB-01-008-0063
-  become: true
-  command: find (partition) -xdev -nogroup
-  ignore_errors: true
-  register: command_output
-
-- debug:
-    var: command_output.stdout_lines
-
-- name: TWGCB-01-008-0064
-  become: true
-  command: find (partition) -xdev -type d -perm -0002 -uid +999 -print
-  ignore_errors: true
-  register: command_output
-
-- debug:
-    var: command_output.stdout_lines
-
-- name: TWGCB-01-008-0065
-  become: true
-  command: find (partition) -xdev -type d -perm -0002 -gid +999 -print
-  ignore_errors: true
-  register: command_output
-
-- debug:
-    var: command_output.stdout_lines
-
 - name: TWGCB-01-008-0066
   become: true
-  command: find -L /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -perm /0022 | xargs ls -al
+  shell: |
+    find -L /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -perm /0022 | xargs ls -al
   ignore_errors: true
   register: command_output
 
@@ -55,7 +11,8 @@
 
 - name: TWGCB-01-008-0067
   become: true
-  command: find -L /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin ! -user root | xargs ls -al
+  shell: |
+    find -L /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin ! -user root | xargs ls -al
   ignore_errors: true
   register: command_output
 
@@ -64,7 +21,8 @@
 
 - name: TWGCB-01-008-0068
   become: true
-  command: find -L /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin ! -group root | xargs ls -al
+  shell: |
+    find -L /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin ! -group root | xargs ls -al
   ignore_errors: true
   register: command_output
 
@@ -73,7 +31,8 @@
 
 - name: TWGCB-01-008-0069
   become: true
-  command: find -L /lib /lib64 /usr/lib /usr/lib64 -perm /0022 -type f | xargs ls -al
+  shell: |
+    find -L /lib /lib64 /usr/lib /usr/lib64 -perm /0022 -type f | xargs ls -al
   ignore_errors: true
   register: command_output
 
@@ -82,7 +41,8 @@
 
 - name: TWGCB-01-008-0070
   become: true
-  command: find -L /lib /lib64 /usr/lib /usr/lib64 ! -user root | xargs ls -al
+  shell: |
+    find -L /lib /lib64 /usr/lib /usr/lib64 ! -user root | xargs ls -al
   ignore_errors: true
   register: command_output
 
@@ -91,7 +51,8 @@
 
 - name: TWGCB-01-008-0071
   become: true
-  command: find -L /lib /lib64 /usr/lib /usr/lib64 ! -group root | xargs ls -al
+  shell: |
+    find -L /lib /lib64 /usr/lib /usr/lib64 ! -group root | xargs ls -al
   ignore_errors: true
   register: command_output
 
@@ -121,7 +82,8 @@
 
 - name: TWGCB-01-008-0075
   become: true
-  command: grep '^\+:' /etc/passwd
+  shell: |
+    grep '^\+:' /etc/passwd
   ignore_errors: true
   register: command_output
 
@@ -130,7 +92,8 @@
 
 - name: TWGCB-01-008-0076
   become: true
-  command: grep '^\+:' /etc/shadow
+  shell: |
+    grep '^\+:' /etc/shadow
   ignore_errors: true
   register: command_output
 
@@ -139,7 +102,8 @@
 
 - name: TWGCB-01-008-0077
   become: true
-  command: grep '^\+:' /etc/group
+  shell: |
+    grep '^\+:' /etc/group
   ignore_errors: true
   register: command_output
 

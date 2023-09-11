@@ -183,6 +183,7 @@ Options=mode=1777,strictatime,noexec,nodev,nosuid
 * 編輯`/etc/fstab`檔案，在掛載點為/var/tmp列，於第4欄加入「,noexec, nosuid」
 
 ```conf
+# TWGCB-01-008-0012
 /dev/mapper/ol-var_tmp  /var/tmp                xfs     defaults,noexec,nosuid        0 0
 ```
 
@@ -263,6 +264,7 @@ mount -o remount,nodev /home
 * 編輯/etc/fstab檔案，在掛載點為/dev/shm列，於第4欄加入「,nodev」
 
 ```conf
+# TWGCB-01-012-0019
 tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0
 ```
 
@@ -369,6 +371,21 @@ chmod 600 (稽核日誌檔案名稱)
 * TWGCB-01-008-0235
 * TWGCB-01-008-0236
 * TWGCB-01-008-0239
+
+### 磁碟檢查項目
+
+* TWGCB-01-008-0061
+* TWGCB-01-008-0062
+* TWGCB-01-008-0063
+* TWGCB-01-008-0064
+* TWGCB-01-008-0065
+
+```bash
+find (partition) -xdev -type f -perm -0002
+find (partition) -xdev -nouser
+find (partition) -xdev -nogroup
+find (partition) -xdev -type d -perm -0002 -uid +999 -print
+```
 
 ## 注意事項
 
