@@ -1,0 +1,8 @@
+- name: TWGCB-install-package
+  become: true
+  dnf:
+    state: latest
+    name: "{{ item }}"
+  with_items:
+    "{{ install_package }}"
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"

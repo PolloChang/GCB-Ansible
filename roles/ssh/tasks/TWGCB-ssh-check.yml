@@ -1,0 +1,23 @@
+# 排程處理項目
+# 若發現「shosts.equiv」檔案，執行指令移除檔案，範例如下：：rm /etc/ssh/shosts.equiv
+- name: TWGCB-01-008-0290
+  become: true
+  command: find / -name shosts.equiv
+  ignore_errors: true
+  register: command_output
+
+- debug:
+    var: command_output.stdout_lines
+
+# 若發現「.shosts」檔案，執行指令移除檔案，範例如下：rm $HOME/.shosts
+- name: TWGCB-01-008-0291
+  become: true
+  shell: |
+    find / -name '*.shosts'
+  ignore_errors: true
+  register: command_output
+  args:
+    executable: /bin/bash
+
+- debug:
+    var: command_output.stdout_lines

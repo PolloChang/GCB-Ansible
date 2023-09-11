@@ -1,0 +1,10 @@
+---
+- name: TWGCB-01-008-0032 push /etc/dnf/dnf.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/dnf/dnf.conf
+    dest: /etc/dnf
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"

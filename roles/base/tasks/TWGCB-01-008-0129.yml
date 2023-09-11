@@ -1,0 +1,9 @@
+---
+- name: TWGCB-01-008-0129 push /etc/modprobe.d/tipc.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/modprobe.d/tipc.conf
+    dest: /etc/modprobe.d
+    owner: root
+    group: root
+    mode: 0644

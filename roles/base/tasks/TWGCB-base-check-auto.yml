@@ -1,0 +1,62 @@
+- name: TWGCB-01-008-0044 check
+  become: true
+  ignore_errors: true
+  shell: grep -E -i '^\s*(FUTURE|FIPS)\s*(\s+#.*)?$' /etc/crypto-policies/config
+  register: result
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0044 execuit
+  become: true
+  command: "{{ item }}"
+  with_items: 
+    - update-crypto-policies --set FUTURE
+    - update-crypto-policies
+    - fips-mode-setup --enable
+  when: result.stdout != ""
+
+- name: TWGCB-01-008-0091 check
+  become: true
+  ignore_errors: true
+  shell: |
+    awk -F: '($1=="shadow") {print $NF}' /etc/group
+  register: result
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0091 execuit
+  become: true
+  command: "{{ item }}"
+  with_items: 
+    - sed -ri 's/(^shadow:[^:]*:[^:]*:)([^:]+$)/\1/' /etc/group # 執行以下指令，從shadow群組移除使用者帳號
+  when: result.stdout != ""
+
+- name: TWGCB-01-008-0108 1
+  become: true
+  ignore_errors: true
+  shell: |
+    grep -Els "^\s*net\.ipv4\.ip_forward\s*=\s*1" /etc/sysctl.conf /etc/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf /run/sysctl.d/*.conf | while read filename; do sed -ri "s/^\s*(net\.ipv4\.ip_forward\s*)(=)(\s*\S+\b).*$/# *REMOVED* \1/" $filename; done; sysctl -w net.ipv4.ip_forward=0; sysctl -w net.ipv4.route.flush=1
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0108 2
+  become: true
+  ignore_errors: true
+  shell: |
+    grep -Els "^\s*net\.ipv6\.conf\.all\.forwarding\s*=\s*1" /etc/sysctl.conf /etc/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf /run/sysctl.d/*.conf | while read filename; do sed -ri "s/^\s*(net\.ipv6\.conf\.all\.forwarding\s*)(=)(\s*\S+\b).*$/# *REMOVED* \1/" $filename; done; sysctl -w net.ipv6.conf.all.forwarding=0; sysctl -w net.ipv6.route.flush=1
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0183
+  become: true
+  ignore_errors: true
+  command: find /var/log -type f -exec chmod g-wx,o-rwx "{}" +
+
+- name: TWGCB-01-008-0184
+  become: true
+  ignore_errors: true
+  command: find /var/log -type d -exec chmod g-w,o-rwx "{}" +
+
+
+
+

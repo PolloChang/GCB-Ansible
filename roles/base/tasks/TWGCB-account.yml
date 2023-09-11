@@ -1,0 +1,170 @@
+- name: TWGCB-account push /etc/security/pwquality.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/security/pwquality.conf
+    dest: /etc/security
+    owner: root
+    group: root
+    mode: 0644
+
+- name: TWGCB-account push /etc/authselect/postlogin
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/authselect/postlogin
+    dest: /etc/authselect
+    owner: root
+    group: root
+    mode: 0644
+
+- name: TWGCB-account push /etc/login.defs
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/login.defs
+    dest: /etc
+    owner: root
+    group: root
+    mode: 0644
+
+- name: TWGCB-account push /etc/bashrc
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/bashrc
+    dest: /etc
+    owner: root
+    group: root
+    mode: 0644
+
+- name: TWGCB-account push /etc/profile.d/gcb.sh
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/profile.d/gcb.sh
+    dest: /etc/profile.d
+    owner: root
+    group: root
+    mode: 0644
+
+- name: TWGCB-account push /etc/profile
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/profile
+    dest: /etc
+    owner: root
+    group: root
+    mode: 0644
+
+- name: TWGCB-01-008-0208
+  become: true
+  ignore_errors: true
+  shell: |
+    #!/bin/bash
+    CP=$(authselect current | awk 'NR == 1 {print $3}' | grep custom/)
+    for FN in system-auth password-auth; do
+    [[ -n $CP ]] && PTF=/etc/authselect/$CP/$FN || PTF=/etc/authselect/$FN
+    [[ -n $(grep -E '^\s*password\s+requisite\s+pam_pwquality.so\s+.*\s+retry=\S+\s*.*$' $PTF) ]] && sed -ri '/pwquality/s/retry=\S+/retry=3/' $PTF || sed -ri 's/^\s*(password\s+requisite\s+pam_pwquality.so\s+)(.*)$/\1\2 retry=3/' $PTF
+    done
+    authselect apply-changes
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0209
+  become: true
+  ignore_errors: true
+  shell: |
+    #!/bin/bash
+    CP=$(authselect current | awk 'NR == 1 {print $3}' | grep custom/)
+    for FN in system-auth password-auth; do
+    [[ -n $CP ]] && PTF=/etc/authselect/$CP/$FN || PTF=/etc/authselect/$FN
+    [[ -z $(grep -E '^\s*password\s+requisite\s+pam_pwquality.so\s+.*enforce_for_root\s*.*$' $PTF) ]] && sed -ri 's/^\s*(password\s+requisite\s+pam_pwquality.so\s+)(.*)$/\1\2 enforce_for_root/' $PTF
+    done
+    authselect apply-changes
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0220
+  become: true
+  ignore_errors: true
+  shell: |
+    #!/bin/bash
+    CP=$(authselect current | awk 'NR == 1 {print $3}' | grep custom/)
+    for FN in system-auth password-auth; do
+    [[ -n $CP ]] && PTF=/etc/authselect/$CP/$FN || PTF=/etc/authselect/$FN
+    [[ -n $(grep -E '^\s*auth\s+required\s+pam_faillock.so\s+.*deny=\S+\s*.*$' $PTF) ]] && sed -ri '/pam_faillock.so/s/deny=\S+/deny=5/g' $PTF || sed -ri 's/^\^\s*(auth\s+required\s+pam_faillock\.so\s+)(.*[^{}])(\{.*\}|)$/\1\2 deny=5 \3/' $PTF
+    $PTF
+    done
+    authselect apply-changes
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0221
+  become: true
+  ignore_errors: true
+  shell: |
+    #!/bin/bash
+    CP=$(authselect current | awk 'NR == 1 {print $3}' | grep custom/)
+    for FN in system-auth password-auth; do
+    [[ -n $CP ]] && PTF=/etc/authselect/$CP/$FN || PTF=/etc/authselect/$FN
+    [[ -n $(grep -E '^\s*auth\s+required\s+pam_faillock.so\s+.*unlock_time=\S+\s*.*$' $PTF) ]] && sed -ri '/pam_faillock.so/s/unlock_time=\S+/unlock_time=900/g' $PTF || sed -ri 's/^\s*(auth\s+required\s+pam_faillock\.so\s+)(.*[^{}])(\{.*\}|)$/\1\2 unlock_time=900 \3/' $PTF
+    done
+    authselect apply-changes
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0222
+  become: true
+  ignore_errors: true
+  shell: |
+    #!/bin/bash
+    CP=$(authselect current | awk 'NR == 1 {print $3}' | grep custom/)
+    [[ -n $CP ]] && PTF=/etc/authselect/$CP/system-auth || PTF=/etc/authselect/system-auth
+    [[ -n $(grep -E '^\s*password\s+(sufficient\s+pam_unix|requi(red|site)\s+pam_pwhistory).so\s+([^#]+\s+)*remember=\S+\s*.*$' $PTF) ]] && sed -ri 's/^\s*(password\s+(requisite|sufficient)\s+(pam_pwquality\.so|pam_unix\.so)\s+)(.*)(remember=\S+\s*)(.*)$/\1\4 remember=3 \6/' $PTF || sed -ri 's/^\s*(password\s+(requisite|sufficient)\s+(pam_pwquality\.so|pam_unix\.so)\s+)(.*)$/\1\4 remember=3/' $PTF
+    authselect apply-changes
+  args:
+    executable: /bin/bash
+
+
+- name: TWGCB-01-008-0224
+  become: true
+  ignore_errors: true
+  shell: |
+    #!/bin/bash
+    CP=$(authselect current | awk 'NR == 1 {print $3}' | grep custom/)
+    for FN in system-auth password-auth; do
+    [[ -n $CP ]] && PTF=/etc/authselect/$CP/$FN || PTF=/etc/authselect/$FN
+    [[ -z $(grep -E '^\s*password\s+sufficient\s+pam_unix.so\s+.*sha512\s*.*$' $PTF) ]] && sed -ri 's/^\s*(password\s+sufficient\s+pam_unix.so\s+)(.*)$/\1\2 sha512/' $PTF
+    done
+    authselect apply-changes
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0228
+  become: true
+  ignore_errors: true
+  command: useradd -D -f 30
+
+
+- name: TWGCB-01-008-0237 1
+  become: true
+  ignore_errors: true
+  shell: |
+    #!/bin/bash
+    awk -F: '($1!="root" && $1!="sync" && $1!="shutdown" && $1!="halt" && $1!~/^\+/ && $3<'"$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs)"' && $7!="'"$(which nologin)"'" && $7!="/bin/false") {print $1}' /etc/passwd | while read user; do usermod -s $(which nologin) $user; done
+  args:
+    executable: /bin/bash
+
+
+- name: TWGCB-01-008-0237 2
+  become: true
+  ignore_errors: true
+  shell: |
+    #!/bin/bash
+    awk -F: '($1!="root" && $1!~/^\+/ && $3<'"$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs)"') {print $1}' /etc/passwd | xargs -I '{}' passwd -S '{}' | awk '($2!="L" && $2!="LK") {print $1}' | while read user; do usermod -L $user; done
+  args:
+    executable: /bin/bash
+
+- name: TWGCB-01-008-0240
+  become: true
+  ignore_errors: true
+  command: usermod -g 0 root
+
+
+

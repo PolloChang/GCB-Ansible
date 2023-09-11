@@ -1,0 +1,10 @@
+# 排程處理項目
+- name: TWGCB-01-008-0267 TWGCB-01-008-0270,TWGCB-01-008-0292
+  become: true
+  command: "{{ item }}"
+  with_items: 
+    - find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:root {} \; # TWGCB-01-008-0267
+    - find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod 600 {} \; # TWGCB-01-008-0268
+    - find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \; # TWGCB-01-008-0269
+    - find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod 644 {} \; # TWGCB-01-008-0270
+    - sed -ri "s/^\s*(CRYPTO_POLICY\s*=.*)$/# \1/" /etc/sysconfig/sshd # TWGCB-01-008-0292

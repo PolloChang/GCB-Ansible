@@ -1,3 +1,7 @@
 ---
   - include_tasks: TWGCB-set-ssh-config.yml
   - include_tasks: TWGCB-01-008-0264.yml
+  - include_tasks: TWGCB-01-008-0265.yml
+  - include_tasks: TWGCB-set-ssh-with-command.yml
+  - include_tasks: ./tasks/restart-sshd.yml
+  - include_tasks: TWGCB-ssh-check.yml

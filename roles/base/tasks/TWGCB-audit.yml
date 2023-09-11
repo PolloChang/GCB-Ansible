@@ -1,0 +1,31 @@
+---
+- name: TWGCB-audit push /etc/audit/auditd.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/audit/auditd.conf
+    dest: /etc/audit
+    owner: root
+    group: root
+    mode: 0640
+
+- name: TWGCB-audit push /etc/audit/rules.d/audit.rules
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/audit/rules.d/audit.rules
+    dest: /etc/audit/rules.d
+    owner: root
+    group: root
+    mode: 0600
+
+- name: TWGCB-01-008-0173 check -e 2
+  become: true
+  shell: |
+    #!/bin/bash
+    grep "^\s*[^#]" /etc/audit/rules.d/*.rules | tail -1
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+  register: command_output
+
+- debug:
+    var: command_output.stdout_lines

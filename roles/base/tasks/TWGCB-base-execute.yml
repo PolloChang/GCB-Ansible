@@ -1,0 +1,7 @@
+- name: TWGCB-base-execute
+  become: true
+  ignore_errors: true
+  command: "{{ item }}"
+  with_items:
+    - nmcli radio all off # TWGCB-01-008-0130
+

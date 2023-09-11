@@ -1,0 +1,30 @@
+install_package:
+  - sudo # TWGCB-01-008-0033
+  - aide # TWGCB-01-008-0036
+  - audit # TWGCB-01-008-0132
+  - audit-libs # TWGCB-01-008-0132
+  - rsyslog # TWGCB-01-008-0185
+  - libselinux # TWGCB-01-008-0185
+  - kbd.x86_64 # TWGCB-01-008-0233
+removed_package:
+  - xinetd # TWGCB-01-008-0092
+  - ypbind # TWGCB-01-008-0102
+  - telnet # TWGCB-01-008-0103
+  - telnet-server # TWGCB-01-008-0104
+  - rsh-server # TWGCB-01-008-0105
+  - tftp-server # TWGCB-01-008-0106
+  - setroubleshoot # TWGCB-01-008-0190
+  - mcstrans # TWGCB-01-008-0191
+disable_packages:
+  - autofs # TWGCB-01-008-0030
+  - rsyncd # TWGCB-01-008-0094
+  - avahi-daemon # TWGCB-01-008-0095
+  - squid # TWGCB-01-008-0097
+  - smb # TWGCB-01-008-0098
+  - vsftpd # TWGCB-01-008-0099
+  - ypserv # TWGCB-01-008-0100
+enable_packages:
+  - kdump # TWGCB-01-008-0101
+  - auditd # TWGCB-01-008-0133
+  - rsyslog # TWGCB-01-008-0175
+  - crond # TWGCB-01-008-0192

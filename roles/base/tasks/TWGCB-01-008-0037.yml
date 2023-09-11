@@ -1,0 +1,8 @@
+- name: TWGCB-01-008-0037
+  become: true
+  cron:
+    user: root
+    name: "TWGCB-01-008-0037"
+    minute: "0"
+    hour: "5"
+    job: "/usr/sbin/aide --check"
