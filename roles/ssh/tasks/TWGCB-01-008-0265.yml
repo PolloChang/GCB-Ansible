@@ -1,3 +1,7 @@
 
-
-- include_tasks: ./tasks/restart-sshd.yml
+- name: TWGCB-01-008-0266
+  become: true
+  file:
+    path: /etc/ssh/sshd_config
+    state: file
+    mode: '0600'
