@@ -1,0 +1,6 @@
+- name: TWGCB-01-008-0036 init
+  become: true
+  command: "{{ item }}"
+  with_items: 
+    - aide --init
+    - mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz

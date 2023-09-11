@@ -1,0 +1,14 @@
+---
+- name: TWGCB-01-008-0134,TWGCB-01-008-0135 push /etc/default/grub
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/default/grub
+    dest: /etc/default
+    owner: root
+    group: root
+    mode: 0644
+
+- name: TWGCB-01-008-0134 command
+  ignore_errors: true
+  become: true
+  command: grub2-mkconfig -o /boot/grub2/grub.cfg

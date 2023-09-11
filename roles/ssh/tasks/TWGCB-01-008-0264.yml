@@ -5,5 +5,3 @@
     owner: root
     group: root
     mode: '0600'
-
-- include_tasks: ./tasks/restart-sshd.yml

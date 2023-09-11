@@ -1,0 +1,13 @@
+- name: TWGCB-01-008-0207
+  become: true
+  shell: |
+    #!/bin/bash
+    grep cron /etc/rsyslog.conf /etc/rsyslog.d/*.conf
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+  register: command_output
+
+- debug:
+    var: command_output.stdout_lines
+

@@ -1,0 +1,25 @@
+- name: TWGCB-audit push /etc/rsyslog.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/rsyslog.conf
+    dest: /etc
+    owner: root
+    group: root
+    mode: 0644
+
+- name: TWGCB-audit push /etc/systemd/journald.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/systemd/journald.conf
+    dest: /etc/systemd
+    owner: root
+    group: root
+    mode: 0644
+
+- name: restart rsyslog with systemd OracleLinux-9
+  become: true
+  systemd:
+    enabled: yes # TWGCB-01-008-0177
+    state: restarted
+    name: rsyslog
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"

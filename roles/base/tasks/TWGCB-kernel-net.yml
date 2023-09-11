@@ -1,0 +1,67 @@
+- name: TWGCB-01-008-0042 push /etc/security/limits.d/gcb.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/security/limits.d/gcb.conf
+    dest: /etc/security/limits.d
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+
+- name: TWGCB-01-008-0042 push /etc/sysctl.d/gcb.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/sysctl.d/gcb.conf
+    dest: /etc/sysctl.d
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+
+- name: TWGCB-01-008-0042 push /etc/systemd/coredump.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/systemd/coredump.conf
+    dest: /etc/systemd
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+
+- name: TWGCB-kernel command
+  become: true
+  command: "{{ item }}"
+  with_items: 
+    - sysctl -w fs.suid_dumpable=0 # TWGCB-01-008-0042
+    - systemctl daemon-reload # TWGCB-01-008-0042
+    - sysctl -w kernel.randomize_va_space=2 # TWGCB-01-008-0043
+
+- name: TWGCB-net command
+  become: true
+  command: "{{ item }}"
+  with_items:
+    - sysctl -w net.ipv4.conf.all.send_redirects=0 # TWGCB-01-008-0109
+    - sysctl -w net.ipv4.conf.default.send_redirects=0 # TWGCB-01-008-0110
+    - sysctl -w net.ipv4.conf.all.accept_source_route=0 # TWGCB-01-008-0111
+    - sysctl -w net.ipv6.conf.all.accept_source_route=0 # TWGCB-01-008-0111
+    - sysctl -w net.ipv4.conf.default.accept_source_route=0 # TWGCB-01-008-0112
+    - sysctl -w net.ipv6.conf.default.accept_source_route=0 # TWGCB-01-008-0112
+    - sysctl -w net.ipv4.conf.all.accept_redirects=0 # TWGCB-01-008-0113
+    - sysctl -w net.ipv6.conf.all.accept_redirects=0 # TWGCB-01-008-0113
+    - sysctl -w net.ipv4.conf.default.accept_redirects=0 # TWGCB-01-008-0114
+    - sysctl -w net.ipv6.conf.default.accept_redirects=0 # TWGCB-01-008-0114
+    - sysctl -w net.ipv4.conf.all.secure_redirects=0 # TWGCB-01-008-0115
+    - sysctl -w net.ipv4.conf.default.secure_redirects=0 # TWGCB-01-008-0116
+    - sysctl -w net.ipv4.conf.all.log_martians=1 # TWGCB-01-008-0117
+    - sysctl -w net.ipv4.conf.default.log_martians=1 # TWGCB-01-008-0118
+    - sysctl -w net.ipv4.conf.default.rp_filter=1 # TWGCB-01-008-0122
+    - sysctl -w net.ipv6.conf.all.accept_ra=0 # TWGCB-01-008-0124
+    - sysctl -w net.ipv6.conf.default.accept_ra=0 # TWGCB-01-008-0125
+    
+
+- name: flush net
+  become: true
+  command: "{{ item }}"
+  with_items:
+    - sysctl -w net.ipv4.route.flush=1
+    - sysctl -w net.ipv6.route.flush=1

@@ -1,0 +1,142 @@
+# 排程處理項目
+- name: TWGCB-01-008-0045,TWGCB-01-008-0046 /etc/passwd
+  become: true
+  file:
+    path: /etc/passwd
+    owner: root  # TWGCB-01-008-0045
+    group: root  # TWGCB-01-008-0045
+    mode: '0644' # TWGCB-01-008-0046
+
+- name: TWGCB-01-008-0047,TWGCB-01-008-0048 /etc/shadow
+  become: true
+  file:
+    path: /etc/shadow
+    owner: root  # TWGCB-01-008-0047
+    group: root  # TWGCB-01-008-0047
+    mode: '0000' # TWGCB-01-008-0048
+
+- name: TWGCB-01-008-0049,TWGCB-01-008-0050 /etc/group
+  become: true
+  file:
+    path: /etc/group
+    owner: root  # TWGCB-01-008-0049
+    group: root  # TWGCB-01-008-0049
+    mode: '0644' # TWGCB-01-008-0050
+
+- name: TWGCB-01-008-0051,TWGCB-01-008-0052 /etc/gshadow
+  become: true
+  file:
+    path: /etc/gshadow
+    owner: root  # TWGCB-01-008-0051
+    group: root  # TWGCB-01-008-0051
+    mode: '0000' # TWGCB-01-008-0052
+
+- name: TWGCB-01-008-0053,TWGCB-01-008-0054 /etc/passwd-
+  become: true
+  file:
+    path: /etc/passwd-
+    owner: root  # TWGCB-01-008-0053
+    group: root  # TWGCB-01-008-0053
+    mode: '0000' # TWGCB-01-008-0054
+
+- name: TWGCB-01-008-0055,TWGCB-01-008-0056 /etc/shadow-
+  become: true
+  file:
+    path: /etc/shadow-
+    owner: root  # TWGCB-01-008-0055
+    group: root  # TWGCB-01-008-0055
+    mode: '0000' # TWGCB-01-008-0056
+
+- name: TWGCB-01-008-0057,TWGCB-01-008-0058 /etc/group-
+  become: true
+  file:
+    path: /etc/group-
+    owner: root  # TWGCB-01-008-0057
+    group: root  # TWGCB-01-008-0057
+    mode: '0644' # TWGCB-01-008-0058
+
+- name: TWGCB-01-008-0059,TWGCB-01-008-0060 /etc/gshadow-
+  become: true
+  file:
+    path: /etc/gshadow-
+    owner: root  # TWGCB-01-008-0059
+    group: root  # TWGCB-01-008-0059
+    mode: '0000' # TWGCB-01-008-0060
+
+- name: TWGCB-01-008-0139,TWGCB-01-008-0142 /etc/audit/auditd.conf
+  become: true
+  file:
+    path: /etc/audit/auditd.conf
+    owner: root  # TWGCB-01-008-0139
+    group: root  # TWGCB-01-008-0139
+    mode: '0640' # TWGCB-01-008-0142
+
+- name: TWGCB-01-008-0141 /etc/audit/rules.d/audit.rules
+  become: true
+  file:
+    path: /etc/audit/rules.d/audit.rules
+    owner: root
+    group: root
+    mode: '0600' # TWGCB-01-008-0141
+
+- name: TWGCB-01-008-0178 /var/log/messages
+  become: true
+  file:
+    path: /var/log/messages
+    owner: root
+    group: root
+
+- name: TWGCB-01-008-0179 /var/log
+  become: true
+  file:
+    path: /var/log
+    owner: root
+    group: root
+
+- name: TWGCB-01-008-0193,TWGCB-01-008-0194 /etc/crontab
+  become: true
+  file:
+    path: /etc/crontab
+    owner: root # TWGCB-01-008-0193
+    group: root # TWGCB-01-008-0193
+    mode: '0600' # TWGCB-01-008-0194
+
+- name: TWGCB-01-008-0195,TWGCB-01-008-0196 /etc/cron.hourly
+  become: true
+  file:
+    path: /etc/cron.hourly
+    owner: root # TWGCB-01-008-0195
+    group: root # TWGCB-01-008-0195
+    mode: '0700' # TWGCB-01-008-0196
+
+- name: TWGCB-01-008-0197,TWGCB-01-008-0198 /etc/cron.daily
+  become: true
+  file:
+    path: /etc/cron.daily
+    owner: root # TWGCB-01-008-0197
+    group: root # TWGCB-01-008-0197
+    mode: '0700' # TWGCB-01-008-0198
+
+- name: TWGCB-01-008-0199,TWGCB-01-008-0200 /etc/cron.weekly
+  become: true
+  file:
+    path: /etc/cron.weekly
+    owner: root # TWGCB-01-008-0199
+    group: root # TWGCB-01-008-0199
+    mode: '0700' # TWGCB-01-008-0200
+
+- name: TWGCB-01-008-0201,TWGCB-01-008-0202 /etc/cron.monthly
+  become: true
+  file:
+    path: /etc/cron.monthly
+    owner: root # TWGCB-01-008-0201
+    group: root # TWGCB-01-008-0201
+    mode: '0700' # TWGCB-01-008-0202
+
+- name: TWGCB-01-008-0203,TWGCB-01-008-0204 /etc/cron.d
+  become: true
+  file:
+    path: /etc/cron.d
+    owner: root # TWGCB-01-008-0203
+    group: root # TWGCB-01-008-0203
+    mode: '0700' # TWGCB-01-008-0204

@@ -1,0 +1,8 @@
+- name: TWGCB-removed-package
+  become: true
+  dnf:
+    state: removed
+    name: "{{ item }}"
+  with_items:
+    "{{ removed_package }}"
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"

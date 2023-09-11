@@ -1,0 +1,36 @@
+---
+  - include_tasks: TWGCB-install-package.yml
+  - include_tasks: TWGCB-removed-package.yml
+  - include_tasks: TWGCB-kernel-net.yml
+  - include_tasks: TWGCB-01-008-0036.yml # 執行一次就好
+  - include_tasks: TWGCB-01-008-0001.yml
+  - include_tasks: TWGCB-01-008-0002.yml
+  - include_tasks: TWGCB-01-008-0003.yml
+  - include_tasks: TWGCB-01-008-0029.yml
+  - include_tasks: TWGCB-01-008-0031.yml
+  - include_tasks: TWGCB-01-008-0032.yml
+  - include_tasks: TWGCB-01-008-0037.yml
+  - include_tasks: TWGCB-01-008-0041.yml
+  - include_tasks: TWGCB-01-008-0119.yml
+  - include_tasks: TWGCB-01-008-0120.yml
+  - include_tasks: TWGCB-01-008-0121.yml
+  - include_tasks: TWGCB-01-008-0123.yml
+  - include_tasks: TWGCB-01-008-0126.yml
+  - include_tasks: TWGCB-01-008-0127.yml
+  - include_tasks: TWGCB-01-008-0128.yml
+  - include_tasks: TWGCB-01-008-0129.yml
+  - include_tasks: TWGCB-01-008-0134.yml
+  - include_tasks: TWGCB-01-008-0136.yml
+  - include_tasks: TWGCB-01-008-0145.yml
+  - include_tasks: TWGCB-audit.yml
+  - include_tasks: TWGCB-rsyslog.yml
+  - include_tasks: TWGCB-base-execute.yml
+  - include_tasks: TWGCB-selinux.yml
+  - include_tasks: TWGCB-boot.yml
+  - include_tasks: TWGCB-base-check-disable.yml
+  - include_tasks: TWGCB-base-check-enable.yml
+  - include_tasks: TWGCB-base-check-auto.yml
+  - include_tasks: TWGCB-base-crontab.yml
+  - include_tasks: TWGCB-base-check-alert-1.yml # 有出現值要警告
+  - include_tasks: TWGCB-base-check-alert-0.yml # 沒有出現值要跳出警告
+  - include_tasks: TWGCB-account.yml

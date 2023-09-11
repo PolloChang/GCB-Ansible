@@ -1,0 +1,21 @@
+---
+- name: TWGCB-01-008-0041 push /usr/lib/systemd/system/rescue.service
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/usr/lib/systemd/system/rescue.service
+    dest: /usr/lib/systemd/system
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+
+- name: TWGCB-01-008-0041 push /usr/lib/systemd/system/emergency.service
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/usr/lib/systemd/system/emergency.service
+    dest: /usr/lib/systemd/system
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+

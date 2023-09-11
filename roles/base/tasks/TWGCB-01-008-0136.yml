@@ -1,0 +1,9 @@
+---
+- name: TWGCB-01-008-0136 push /etc/aliases
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/aliases
+    dest: /etc/default
+    owner: root
+    group: root
+    mode: 0644
