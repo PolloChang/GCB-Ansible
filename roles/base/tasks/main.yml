@@ -19,7 +19,6 @@
   - include_tasks: TWGCB-01-008-0127.yml
   - include_tasks: TWGCB-01-008-0128.yml
   - include_tasks: TWGCB-01-008-0129.yml
-  - include_tasks: TWGCB-01-008-0134.yml
   - include_tasks: TWGCB-01-008-0136.yml
   - include_tasks: TWGCB-01-008-0145.yml
   - include_tasks: TWGCB-audit.yml
