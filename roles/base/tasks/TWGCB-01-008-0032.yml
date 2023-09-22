@@ -8,3 +8,13 @@
     group: root
     mode: 0644
   when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+
+- name: TWGCB-01-008-0032 push /etc/yum.conf
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/yum.conf
+    dest: /etc
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
