@@ -1,6 +1,6 @@
 # TWGCB-01-008-0263,TWGCB-01-008-0271 到 TWGCB-01-008-0289
 ---
-- name: push /etc/ssh/sshd_config
+- name: push /etc/ssh/sshd_config on OracleLinux 9
   become: true
   copy:
     src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/ssh/sshd_config.d/gcb.conf
@@ -8,3 +8,14 @@
     owner: root
     group: root
     mode: 0600
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+
+- name: push /etc/ssh/sshd_config on CentOS 7
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/ssh/sshd_config
+    dest: /etc/ssh
+    owner: root
+    group: root
+    mode: 0600
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"

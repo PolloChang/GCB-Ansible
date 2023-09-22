@@ -16,10 +16,10 @@ GCB-Ansible-2.0是依據「政府組態基準(GCB) - 國家資通安全研究院
 ### (Optional)建立帳號:ansible
 
 ```bash
-groupadd ansible
-useradd -g ansible -d /home/ansible -s /bin/bash ansible
-usermod -aG wheel ansible
-passwd ansible
+sudo groupadd ansible
+sudo useradd -g ansible -d /home/ansible -s /bin/bash ansible
+sudo usermod -aG wheel ansible
+sudo passwd ansible
 ```
 
 ### ssh-keygen
@@ -75,6 +75,31 @@ ansible-playbook check-os-version.yml -i inventorys/develop
 ## 手動設定項目
 
 ### 基本項目
+
+以下是通用項目
+
+* /etc/fstab
+
+```bash
+tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime 0 0
+tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0
+```
+
+```bash
+systemctl unmask tmp.mount
+systemctl enable tmp.mount
+mount -o remount,nodev,nosuid,noexec /dev/shm
+```
+
+* /etc/systemd/system/local-fs.target.wants/tmp.mount
+
+```conf
+[Mount]
+What=tmpfs
+Where=/tmp
+Type=tmpfs
+Options=mode=1777,strictatime,noexec,nodev,nosuid
+```
 
 #### TWGCB-01-008-0004 TWGCB-01-008-0007: 設定/tmp
 
