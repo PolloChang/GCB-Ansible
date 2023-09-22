@@ -1,0 +1,162 @@
+#       $OpenBSD: sshd_config,v 1.100 2016/08/15 12:32:04 naddy Exp $
+
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/local/bin:/usr/bin
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+# If you want to change the port on a SELinux system, you have to tell
+# SELinux about this change.
+# semanage port -a -t ssh_port_t -p tcp #PORTNUMBER
+#
+#Port 22
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+
+# TWGCB-01-008-0263	TWGCB-01-012-0256
+Protocol 2
+
+HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Ciphers and keying
+#RekeyLimit default none
+
+# TWGCB-01-008-0271 TWGCB-01-012-0264
+Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+
+# Logging
+#SyslogFacility AUTH
+SyslogFacility AUTHPRIV
+# TWGCB-01-008-0272 TWGCB-01-012-0265
+LogLevel INFO
+
+# Authentication:
+
+# TWGCB-01-008-0281	TWGCB-01-012-0274
+LoginGraceTime 60
+# TWGCB-01-008-0277	TWGCB-01-012-0270
+PermitRootLogin no
+# TWGCB-01-008-0286	TWGCB-01-012-0279
+StrictModes yes
+# TWGCB-01-008-0274	TWGCB-01-012-0267
+MaxAuthTries 4
+# TWGCB-01-008-0285	TWGCB-01-012-0278
+MaxSessions 4
+
+#PubkeyAuthentication yes
+
+# The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
+# but this is overridden so installations will only check .ssh/authorized_keys
+AuthorizedKeysFile      .ssh/authorized_keys
+
+#AuthorizedPrincipalsFile none
+
+#AuthorizedKeysCommand none
+#AuthorizedKeysCommandUser nobody
+
+# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
+# TWGCB-01-008-0276	TWGCB-01-012-0269
+HostbasedAuthentication no
+# Change to yes if you don't trust ~/.ssh/known_hosts for
+# HostbasedAuthentication
+# TWGCB-01-008-0288	TWGCB-01-012-0281
+IgnoreUserKnownHosts yes
+# Don't read the user's ~/.rhosts and ~/.shosts files
+# TWGCB-01-008-0275	TWGCB-01-012-0268
+IgnoreRhosts yes
+
+# To disable tunneled clear text passwords, change to no here!
+# TWGCB-01-008-0278	TWGCB-01-012-0271
+PermitEmptyPasswords no
+PasswordAuthentication yes
+
+# Change to no to disable s/key passwords
+#ChallengeResponseAuthentication yes
+ChallengeResponseAuthentication no
+
+# Kerberos options
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+#KerberosUseKuserok yes
+
+# GSSAPI options
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials no
+#GSSAPIStrictAcceptorCheck yes
+#GSSAPIKeyExchange no
+#GSSAPIEnablek5users no
+
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the ChallengeResponseAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via ChallengeResponseAuthentication may bypass
+# the setting of "PermitRootLogin without-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and ChallengeResponseAuthentication to 'no'.
+# WARNING: 'UsePAM no' is not supported in Red Hat Enterprise Linux and may cause several
+# problems.
+# TWGCB-01-008-0282	TWGCB-01-012-0275
+UsePAM yes
+
+#AllowAgentForwarding yes
+# TWGCB-01-008-0283	TWGCB-01-012-0276
+AllowTcpForwarding no
+#GatewayPorts no
+# TWGCB-01-008-0273	TWGCB-01-012-0266
+X11Forwarding no
+#X11DisplayOffset 10
+#X11UseLocalhost yes
+#PermitTTY yes
+#PrintMotd yes
+# TWGCB-01-008-0289	TWGCB-01-012-0282
+PrintLastLog yes
+#TCPKeepAlive yes
+#UseLogin no
+#UsePrivilegeSeparation sandbox
+# TWGCB-01-008-0279	TWGCB-01-012-0272
+PermitUserEnvironment no
+# TWGCB-01-008-0287	TWGCB-01-012-0280
+Compression delayed
+# TWGCB-01-008-0280	TWGCB-01-012-0273
+ClientAliveInterval 600
+ClientAliveCountMax 0
+#ShowPatchLevel no
+#UseDNS yes
+#PidFile /var/run/sshd.pid
+# TWGCB-01-008-0284	TWGCB-01-012-0277
+Maxstartups 10:30:60
+#PermitTunnel no
+#ChrootDirectory none
+#VersionAddendum none
+
+# no default banner path
+#Banner none
+
+# Accept locale-related environment variables
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
+
+# override default of no subsystems
+Subsystem       sftp    /usr/libexec/openssh/sftp-server
+
+# Example of overriding settings on a per-user basis
+#Match User anoncvs
+#       X11Forwarding no
+#       AllowTcpForwarding no
+#       PermitTTY no
+#       ForceCommand cvs server
