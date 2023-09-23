@@ -16,10 +16,9 @@
     group: root
     mode: 0644
 
-- name: restart rsyslog with systemd OracleLinux-9
+- name: restart rsyslog with systemd
   become: true
   systemd:
     enabled: yes # TWGCB-01-008-0177
     state: restarted
     name: rsyslog
-  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"

@@ -6,7 +6,6 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
 
 - name: TWGCB-01-008-0042 push /etc/sysctl.d/gcb.conf
   become: true
@@ -16,7 +15,6 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
 
 - name: TWGCB-01-008-0042 push /etc/systemd/coredump.conf
   become: true
@@ -26,7 +24,6 @@
     owner: root
     group: root
     mode: 0644
-  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
 
 - name: TWGCB-kernel command
   become: true
