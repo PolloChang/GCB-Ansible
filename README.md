@@ -9,7 +9,7 @@ GCB-Ansible-2.0是依據「政府組態基準(GCB) - 國家資通安全研究院
 
 ## 部屬環境
 
-* OS: Oracle-Linux-9
+* OS: Oracle-Linux-9, CentOS-7
 
 ## 部屬前設定
 

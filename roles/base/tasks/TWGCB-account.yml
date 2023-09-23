@@ -7,7 +7,7 @@
     group: root
     mode: 0644
 
-- name: TWGCB-account push /etc/authselect/postlogin
+- name: TWGCB-account TWGCB-01-008-0223 push /etc/authselect/postlogin
   become: true
   copy:
     src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/authselect/postlogin
@@ -15,6 +15,17 @@
     owner: root
     group: root
     mode: 0644
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+
+- name: TWGCB-account TWGCB-01-008-0223 push /etc/pam.d/postlogin-ac
+  become: true
+  copy:
+    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/pam.d/postlogin-ac
+    dest: /etc/pam.d
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
 
 - name: TWGCB-account push /etc/login.defs
   become: true

@@ -6,3 +6,12 @@
   with_items:
     "{{ removed_package }}"
   when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+
+- name: TWGCB-removed-package
+  become: true
+  yum:
+    state: removed
+    name: "{{ item }}"
+  with_items:
+    "{{ removed_package }}"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
