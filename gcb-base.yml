@@ -1,3 +1,4 @@
+# 套入GCB設定項目: 基本項目
 ---
 - hosts: servers
   vars:
