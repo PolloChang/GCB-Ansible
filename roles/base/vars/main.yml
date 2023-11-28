@@ -1,3 +1,5 @@
+gcb_action: # 要執行GCB的playbook
+  - set-gcb
 install_package:
   - sudo # TWGCB-01-008-0033
   - aide # TWGCB-01-008-0036

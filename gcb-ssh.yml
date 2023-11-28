@@ -1,4 +1,6 @@
 ---
 - hosts: servers
+  vars:
+    - playbook_action: set-gcb
   roles:
       - { role: ssh }

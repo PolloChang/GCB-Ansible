@@ -1,7 +1,13 @@
 ---
   - include_tasks: TWGCB-set-ssh-config.yml
+    when: playbook_action in gcb_action
   - include_tasks: TWGCB-01-008-0264.yml
+    when: playbook_action in gcb_action
   - include_tasks: TWGCB-01-008-0265.yml
+    when: playbook_action in gcb_action
   - include_tasks: TWGCB-set-ssh-with-command.yml
+    when: playbook_action in gcb_action
   - include_tasks: ./tasks/restart-sshd.yml
+    when: playbook_action in gcb_action
   - include_tasks: TWGCB-ssh-check.yml
+    when: playbook_action in gcb_action

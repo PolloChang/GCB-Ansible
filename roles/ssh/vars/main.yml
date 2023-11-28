@@ -1,0 +1,2 @@
+gcb_action: # 要執行GCB的playbook
+  - set-gcb
