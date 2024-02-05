@@ -1,0 +1,6 @@
+
+- name: check TWGCB-01-003-0001
+  command: cat /proc/mounts | grep /tmp 
+  register: command_output
+- debug:
+    var: command_output.stdout_lines

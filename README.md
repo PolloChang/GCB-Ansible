@@ -66,11 +66,20 @@ ansible-playbook check-os-version.yml -i inventorys/develop
 ## 安裝 OS 時設定
 
 * 獨立磁區(安裝時處理)
-  * TWGCB-01-008-0008: /var
-  * TWGCB-01-008-0009: /var/tmp
-  * TWGCB-01-008-0013: /var/log
-  * TWGCB-01-008-0014: /var/log/audit
-  * TWGCB-01-008-0015: /home
+  * /tmp
+    * TWGCB-01-003-0001: RedHat5
+  * /var
+    * TWGCB-01-003-0002: RedHat5
+    * TWGCB-01-008-0008: RedHat8
+  * /var/tmp
+    * TWGCB-01-008-0009: RedHat8
+  * /var/log
+    * TWGCB-01-003-0003: RedHat5
+    * TWGCB-01-008-0013: RedHat8
+  * /var/log/audit
+    * TWGCB-01-008-0014: RedHat8
+  * /home
+    * TWGCB-01-008-0015: RedHat8
 
 ## 手動設定項目
 
