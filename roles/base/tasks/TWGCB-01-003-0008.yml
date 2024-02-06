@@ -1,0 +1,3 @@
+
+- name: TWGCB-01-003-0008
+  command: chkconfig yum-updatesd off

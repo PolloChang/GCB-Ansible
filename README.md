@@ -77,8 +77,10 @@ ansible-playbook check-os-version.yml -i inventorys/develop
     * TWGCB-01-003-0003: RedHat5
     * TWGCB-01-008-0013: RedHat8
   * /var/log/audit
+    * TWGCB-01-003-0004: RedHat5
     * TWGCB-01-008-0014: RedHat8
   * /home
+    * TWGCB-01-003-0005: RedHat5
     * TWGCB-01-008-0015: RedHat8
 
 ## 手動設定項目

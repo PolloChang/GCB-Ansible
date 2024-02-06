@@ -2,18 +2,13 @@
 - name: RedHat 5
   when: ansible_os_family == "RedHat" and ansible_distribution_major_version | int == 5
   block:
-    - name: TWGCB-01-003-0001
-      include_tasks:
-      file: TWGCB-01-003-0001.yml
-      apply:
-        become: true
-    - name: TWGCB-01-003-0002
-      include_tasks:
-      file: TWGCB-01-003-0002.yml
-      apply:
-        become: true
-    - name: TWGCB-01-003-0003
-      include_tasks:
-      file: TWGCB-01-003-0003.yml
-      apply:
-        become: true
+    - include_tasks: TWGCB-01-003-0001.yml
+    - include_tasks: TWGCB-01-003-0002.yml
+    - include_tasks: TWGCB-01-003-0003.yml
+    - include_tasks: TWGCB-01-003-0004.yml
+    - include_tasks: TWGCB-01-003-0005.yml
+    - include_tasks: TWGCB-01-003-0006.yml
+    - include_tasks: TWGCB-01-003-0007.yml
+    - include_tasks: TWGCB-01-003-0008.yml
+  apply:
+    become: true
