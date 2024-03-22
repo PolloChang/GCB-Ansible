@@ -104,7 +104,6 @@ ansible-playbook check-os-version.yml -i inventorys/develop
   * TWGCB-01-003-0005
   * TWGCB-01-008-0015
 
-
 ## 手動設定項目
 
 ### 裝置檢查
