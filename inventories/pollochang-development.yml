@@ -1,0 +1,14 @@
+all:
+  children:
+    default: # 網站伺服器
+  vars:
+    ansible_user: ansible
+    ansible_port: 22
+
+
+default:
+  hosts:
+    oracle-linux-7:
+      ansible_host: 192.168.122.60
+    # oracle-linux-9:
+    #   ansible_host: 192.168.122.138

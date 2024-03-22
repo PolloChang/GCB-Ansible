@@ -1,0 +1,9 @@
+ # Using alternate directory locations:
+- hosts: 
+   - all
+  user: ansible
+  tasks:
+    - name: ssh-copy
+      authorized_key: user=ansible key="{{ lookup('file', '.ssh/id_rsa.pub') }}"
+      tags:
+        - sshkey

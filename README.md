@@ -13,6 +13,14 @@ GCB-Ansible-2.0是依據「政府組態基準(GCB) - 國家資通安全研究院
 
 ## 部屬前設定
 
+### 開發環境設定
+
+```bash
+tee /etc/sudoers.d/pollo-develop<<EOF
+ansible ALL=(ALL)   NOPASSWD: ALL
+EOF
+```
+
 ### (Optional)建立帳號:ansible
 
 ```bash
