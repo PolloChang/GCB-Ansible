@@ -1,0 +1,9 @@
+gcb_blacklist: gcb-blacklist
+sysconfig_init: sysconfig-init
+etc_sysctl_redhat6_conf: etc-sysctl-redhat6.conf
+etc_sysctl_redhat7_conf: etc-sysctl-redhat7.conf
+TWGCB_003_limits_gcb_conf: TWGCB-003-limits-gcb.conf
+TWGCB_008_limits_gcb_conf: TWGCB-008-limits-gcb.conf
+console_perms: console.perms
+TWGCB_003_securetty_RedHat6: TWGCB-003-securetty-RedHat6
+TWGCB_003_securetty_RedHat7: TWGCB-003-securetty-RedHat7

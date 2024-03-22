@@ -1,0 +1,12 @@
+TWGCB_003_securetty_RedHat6: TWGCB-003-securetty-RedHat6
+TWGCB_003_securetty_RedHat7: TWGCB-003-securetty-RedHat7
+su: su
+login_defs: login.defs
+system_auth: system-auth
+libuser_conf: libuser.conf
+profile: profile
+bashrc: bashrc
+csh_cshrc: csh.cshrc
+sysconfig_init: sysconfig-init
+TWGCB_003_issue_OracleLinux7: TWGCB-003-issue-OracleLinux7
+TWGCB_003_issue_RedHat6: TWGCB-003-issue-RedHat6

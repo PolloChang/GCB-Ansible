@@ -1,0 +1,9 @@
+
+- include_tasks: 
+    file: TWGCB-gcb-blacklist.yml
+    apply:
+      become: true
+- include_tasks: 
+    file: TWGCB-permissions.yml
+    apply:
+      become: true

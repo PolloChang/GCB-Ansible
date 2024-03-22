@@ -8,7 +8,9 @@ all:
 
 default:
   hosts:
-    oracle-linux-7:
+    gcb-redhat-linux-6:
+      ansible_host: 192.168.122.254
+    gcb-oracle-linux-7:
       ansible_host: 192.168.122.60
     # oracle-linux-9:
     #   ansible_host: 192.168.122.138

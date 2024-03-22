@@ -1,69 +1,69 @@
 ---
   - include_tasks: TWGCB-install-package.yml
     when: playbook_action in gcb_action
-  - include_tasks: TWGCB-removed-package.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-kernel-net.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0036.yml # 執行一次就好
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0001.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0002.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0003.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0029.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0031.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0032.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0037.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0041.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0119.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0120.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0121.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0123.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0126.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0127.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0128.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0129.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0136.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-01-008-0145.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-audit.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-rsyslog.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-base-execute.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-selinux.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-boot.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-base-check-disable.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-base-check-enable.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-base-check-auto.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-base-crontab.yml
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-base-check-alert-1.yml # 有出現值要警告
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-base-check-alert-0.yml # 沒有出現值要跳出警告
-    when: playbook_action in gcb_action
-  - include_tasks: TWGCB-account.yml
-    when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-removed-package.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-kernel-net.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0036.yml # 執行一次就好
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0001.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0002.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0003.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0029.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0031.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0032.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0037.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0041.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0119.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0120.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0121.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0123.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0126.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0127.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0128.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0129.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0136.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-01-008-0145.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-audit.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-rsyslog.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-base-execute.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-selinux.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-boot.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-base-check-disable.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-base-check-enable.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-base-check-auto.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-base-crontab.yml
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-base-check-alert-1.yml # 有出現值要警告
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-base-check-alert-0.yml # 沒有出現值要跳出警告
+  #   when: playbook_action in gcb_action
+  # - include_tasks: TWGCB-account.yml
+  #   when: playbook_action in gcb_action

@@ -1,11 +1,4 @@
-- name: TWGCB-01-008-0042 push /etc/security/limits.d/gcb.conf
-  become: true
-  copy:
-    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/security/limits.d/gcb.conf
-    dest: /etc/security/limits.d
-    owner: root
-    group: root
-    mode: 0644
+
 
 - name: TWGCB-01-008-0042 push /etc/sysctl.d/gcb.conf
   become: true

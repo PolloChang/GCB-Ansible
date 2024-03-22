@@ -36,14 +36,7 @@
     group: root
     mode: 0644
 
-- name: TWGCB-account push /etc/bashrc
-  become: true
-  copy:
-    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/bashrc
-    dest: /etc
-    owner: root
-    group: root
-    mode: 0644
+
 
 - name: TWGCB-account push /etc/profile.d/gcb.sh
   become: true
@@ -54,14 +47,7 @@
     group: root
     mode: 0644
 
-- name: TWGCB-account push /etc/profile
-  become: true
-  copy:
-    src: files/{{ansible_distribution}}/{{ansible_distribution_major_version}}/etc/profile
-    dest: /etc
-    owner: root
-    group: root
-    mode: 0644
+
 
 - name: TWGCB-01-008-0208
   become: true

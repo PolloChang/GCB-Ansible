@@ -1,0 +1,133 @@
+- name: TWGCB-01-008-0045,TWGCB-01-008-0046 /etc/passwd
+  file:
+    path: /etc/passwd
+    owner: root  # TWGCB-01-008-0045,TWGCB-01-003-0041
+    group: root  # TWGCB-01-008-0045,TWGCB-01-003-0042
+    mode: '0644' # TWGCB-01-008-0046,TWGCB-01-003-0040
+
+- name: TWGCB-01-008-0047,TWGCB-01-008-0048 /etc/shadow
+  file:
+    path: /etc/shadow
+    owner: root  # TWGCB-01-008-0047,TWGCB-01-003-0035
+    group: root  # TWGCB-01-008-0047,TWGCB-01-003-0036
+    mode: '0000' # TWGCB-01-008-0048,TWGCB-01-003-0034
+
+- name: TWGCB-01-008-0049,TWGCB-01-008-0050 /etc/group
+  file:
+    path: /etc/group
+    owner: root  # TWGCB-01-008-0049,TWGCB-01-003-0038
+    group: root  # TWGCB-01-008-0049,TWGCB-01-003-0039
+    mode: '0644' # TWGCB-01-008-0050,TWGCB-01-003-0037
+
+- name: TWGCB-01-008-0051,TWGCB-01-008-0052 /etc/gshadow
+  file:
+    path: /etc/gshadow
+    owner: root  # TWGCB-01-008-0051,TWGCB-01-003-0032
+    group: root  # TWGCB-01-008-0051,TWGCB-01-003-0033
+    mode: '0000' # TWGCB-01-008-0052,TWGCB-01-003-0031
+
+- name: TWGCB-01-008-0053,TWGCB-01-008-0054 /etc/passwd-
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version | int >= 8
+  file:
+    path: /etc/passwd-
+    owner: root  # TWGCB-01-008-0053
+    group: root  # TWGCB-01-008-0053
+    mode: '0000' # TWGCB-01-008-0054
+
+- name: TWGCB-01-008-0055,TWGCB-01-008-0056 /etc/shadow-
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version | int >= 8
+  file:
+    path: /etc/shadow-
+    owner: root  # TWGCB-01-008-0055
+    group: root  # TWGCB-01-008-0055
+    mode: '0000' # TWGCB-01-008-0056
+
+- name: TWGCB-01-008-0057,TWGCB-01-008-0058 /etc/group-
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version | int >= 8
+  file:
+    path: /etc/group-
+    owner: root  # TWGCB-01-008-0057
+    group: root  # TWGCB-01-008-0057
+    mode: '0644' # TWGCB-01-008-0058
+
+- name: TWGCB-01-008-0059,TWGCB-01-008-0060 /etc/gshadow-
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version | int >= 8
+  file:
+    path: /etc/gshadow-
+    owner: root  # TWGCB-01-008-0059
+    group: root  # TWGCB-01-008-0059
+    mode: '0000' # TWGCB-01-008-0060
+
+- name: /etc/sysconfig/init
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/sysconfig/init
+    src: "{{ sysconfig_init }}"
+
+- name: /etc/sysctl.conf RedHat6
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/sysctl.conf
+    src: "{{ etc_sysctl_redhat6_conf }}"
+
+- name: /etc/sysctl.conf RedHat7
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/sysctl.conf
+    src: "{{ etc_sysctl_redhat7_conf }}"
+
+
+- name: /etc/security/limits.conf TWGCB_003
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/security/limits.d/gcb.conf
+    src: "{{ TWGCB_003_limits_gcb_conf }}"
+
+- name: /etc/security/limits.conf TWGCB_008
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version | int >= 8
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/security/limits.d/gcb.conf
+    src: "{{ TWGCB_008_limits_gcb_conf }}"
+
+- name: /etc/security/console.perms
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/security/console.perms
+    src: "{{ console_perms }}"
+
+
+- name: /etc/securetty RedHat6 TWGCB-01-003-0059,TWGCB-01-003-0060,TWGCB-01-003-0061,TWGCB-01-003-0062
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6"]
+  template:
+    owner: root
+    group: root
+    mode: 0600
+    dest: /etc/securetty
+    src: "{{ TWGCB_003_securetty_RedHat6 }}"
+
+- name: /etc/securetty RedHat7 TWGCB-01-003-0059,TWGCB-01-003-0060,TWGCB-01-003-0061,TWGCB-01-003-0062
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["7"]
+  template:
+    owner: root
+    group: root
+    mode: 0600
+    dest: /etc/securetty
+    src: "{{ TWGCB_003_securetty_RedHat7 }}"

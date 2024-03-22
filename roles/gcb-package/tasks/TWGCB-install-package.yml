@@ -1,0 +1,27 @@
+- name: TWGCB-01-003-0006(安裝Red Hat GPG金鑰)
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "6"
+  shell: |
+    #!/bin/bash
+    curl https://access.redhat.com/security/data/fd431d51.txt >> /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+    rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+- name: RedHat Base version
+  when: ansible_distribution == "RedHat"
+  block:
+    - name: install_package
+      yum:
+        name: "{{ item }}"
+      with_items:
+        "{{ install_package }}"
+
+
+- name: RedHat Base version 6
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  block:
+  - name: RedHat Base version
+    block:
+      - name: install_package
+        yum:
+          name: "{{ item }}"
+        with_items:
+          "{{ install_package_TWGCB_01_003 }}"

@@ -13,6 +13,17 @@ GCB-Ansible-2.0是依據「政府組態基準(GCB) - 國家資通安全研究院
 
 ## 部屬前設定
 
+### 目標主機設定
+
+### RedHat6
+
+1. 掛載光碟
+2. 安裝必要套件
+
+```bash
+yum install -y libselinux-python
+```
+
 ### 開發環境設定
 
 ```bash
@@ -73,14 +84,50 @@ ansible-playbook check-os-version.yml -i inventorys/develop
 
 ## 安裝 OS 時設定
 
-* 獨立磁區(安裝時處理)
-  * TWGCB-01-008-0008: /var
-  * TWGCB-01-008-0009: /var/tmp
-  * TWGCB-01-008-0013: /var/log
-  * TWGCB-01-008-0014: /var/log/audit
-  * TWGCB-01-008-0015: /home
+### 獨立磁區
+
+下列目錄需要獨立磁區處理，建議在安裝作業系統時處理
+
+* /var : 依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0002
+  * TWGCB-01-008-0008
+* /var/tmp : 依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0001
+  * TWGCB-01-008-0009
+* /var/log : 依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0003
+  * TWGCB-01-008-0013
+* /var/log/audit : 依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0004
+  * TWGCB-01-008-0014
+* /home : 依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0005
+  * TWGCB-01-008-0015
+
 
 ## 手動設定項目
+
+### 裝置檢查
+
+```bash
+#!/bin/bash
+# TWGCB-01-003-0043
+find PART -xdev -type d \( -perm -0002 -a ! -perm -1000 \) -print
+# TWGCB-01-003-0044
+find PART -xdev -type f -perm -0002 -print
+# TWGCB-01-003-0045
+find PART -xdev -type f -perm -2000 -print
+# TWGCB-01-003-0046
+find PART -xdev -type f -perm -4000 -print
+# TWGCB-01-003-0047
+find PART -xdev \( -nouser -o -nogroup \) -print
+# TWGCB-01-003-0048
+find PART -xdev \( -nouser -o -nogroup \) -print
+# TWGCB-01-003-0049
+find PART -xdev -type d -perm -0002 -uid +500 -print
+
+grep -E "ttyS0|ttyS1" /etc/securetty
+```
 
 ### 基本項目
 
@@ -109,12 +156,60 @@ Type=tmpfs
 Options=mode=1777,strictatime,noexec,nodev,nosuid
 ```
 
+#### TWGCB-01-003-0013: 非root分割區啟用nodev選項
+
+編輯/etc/fstab檔案，在掛載點不是「/」且檔案系統為ext2或ext3之列，於第4欄加入「,nodev」
+
+#### TWGCB-01-003-0014 TWGCB-01-003-0016: 可攜式儲存裝置
+
+* 可攜式儲存裝置啟用nodev選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0014
+* 可攜式儲存裝置啟用noexec選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0015
+* 可攜式儲存裝置啟用nosuid選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0016
+
+#### TWGCB-01-008-0004 TWGCB-01-008-0007: 設定/dev/shm
+
+* 可攜式儲存裝置啟用nodev選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0020
+* 可攜式儲存裝置啟用noexec選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0022
+* 可攜式儲存裝置啟用nosuid選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0021
+
+#### TWGCB-01-003-0023: 設定/var/tmp
+
+* 將/var/tmp綁定掛載到/tmp，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0023
+
+##### 說明
+
+▪  這項原則設定決定是否將/var/tmp系統服務暫存資料目錄，綁定掛載到/tmp
+▪  啟用這項原則，可將/var/tmp與/tmp暫存資料皆寫入/tmp目錄中，讓/var/tmp與/tmp擁有相同保護機制
+▪  若使用者欲透過/var/tmp中之暫存檔案執行惡意程式，將會受限於/tmp權限限制，防止惡意程式執行
+
+##### 設定方法
+
+編輯/etc/fstab，新增或修改成以下內容：
+
+```
+/tmp /var/tmp none rw,noexec,nosuid,nod ev,bind 0 0
+```
+
 #### TWGCB-01-008-0004 TWGCB-01-008-0007: 設定/tmp
 
-* TWGCB-01-008-0004: 設定/tmp目錄之檔案系統
-* TWGCB-01-008-0005: 設定/tmp目錄之nodev選項
-* TWGCB-01-008-0006: 設定/tmp目錄之nosuid選項
-* TWGCB-01-008-0007: 設定/tmp目錄之noexec選項
+* 設定/tmp目錄之檔案系統，依下列 TWGCB-ID 要求
+  * TWGCB-01-008-0004
+* 設定/tmp目錄之nodev選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0017
+  * TWGCB-01-008-0005
+* 設定/tmp目錄之nosuid選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0018
+  * TWGCB-01-008-0006
+* 設定/tmp目錄之noexec選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-003-0019
+  * TWGCB-01-008-0007
 
 ##### 說明
 
@@ -190,8 +285,10 @@ Options=mode=1777,strictatime,noexec,nodev,nosuid
 
 #### TWGCB-01-008-0011 TWGCB-01-008-0012: 設定/var/tmp
 
-* TWGCB-01-008-0011: 設定/var/tmp目錄之nosuid選項
-* TWGCB-01-008-0012: 設定/var/tmp目錄之noexec選項
+* 設定/var/tmp目錄之nosuid選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-008-0011
+* 設定/var/tmp目錄之noexec選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-008-0012
 
 ##### 說明
 
@@ -231,7 +328,8 @@ mount -o remount,noexec,nosuid /var/tmp
 
 ##### 說明
 
-* TWGCB-01-012-0016: 設定/home目錄之nodev選項
+* 設定/home目錄之nodev選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-012-0016
 
 ###### TWGCB-01-012-0016: 設定/home目錄之nodev選項
 
@@ -259,9 +357,12 @@ mount -o remount,nodev /home
 
 #### TWGCB-01-012-0017 TWGCB-01-012-0019: 設定/dev/shm目錄
 
-* TWGCB-01-012-0017: 設定/dev/shm目錄之nodev選項
-* TWGCB-01-012-0018: 設定/dev/shm目錄之nosuid選項
-* TWGCB-01-012-0019: 設定/dev/shm目錄之noexec選項
+* 設定/dev/shm目錄之nodev選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-012-0017
+* 設定/dev/shm目錄之nosuid選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-012-0018
+* 設定/dev/shm目錄之noexec選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-012-0019
 
 ##### 說明
 
@@ -310,9 +411,12 @@ mount -o remount,nodev,nosuid,noexec /dev/shm
 
 如果有插入可攜式儲存裝置，請設定下列項目
 
-* TWGCB-01-008-0020: 設定可攜式儲存裝置之nodev選項
-* TWGCB-01-008-0021: 設定可攜式儲存裝置之nosuid選項
-* TWGCB-01-008-0022: 設定可攜式儲存裝置之noexec選項
+* 設定可攜式儲存裝置之nodev選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-008-0020
+* 設定可攜式儲存裝置之nosuid選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-008-0021
+* 設定可攜式儲存裝置之noexec選項，依下列 TWGCB-ID 要求
+  * TWGCB-01-008-0022
 
 ### TWGCB-01-008-0034,TWGCB-01-008-0035: /etc/sudoers.d/
 
@@ -434,6 +538,29 @@ GRUB_CMDLINE_LINUX="audit=1 audit_backlog_limit=8192"
 ```bash
 grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
+
+### 全系統GPG簽章驗證
+
+依據下列規範檢查，如果大於零需要寫特殊原因
+
+* TWGCB-01-003-0009
+* TWGCB-01-003-0010
+
+```bash
+grep gpgcheck=0 /etc/yum.conf /etc/yum.repos.d/* | wc -l
+```
+
+### 使用RPM驗證套件完整性
+
+依據下列規範檢查，如果有列出需要特別注意
+
+* TWGCB-01-003-0012
+
+```bash
+rpm -qVa | awk '$2!="c" {print $0}'
+```
+
+### 手
 
 ## 注意事項
 

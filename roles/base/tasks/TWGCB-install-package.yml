@@ -1,17 +1,26 @@
-- name: TWGCB-install-package OracleLinux-9
-  become: true
-  dnf:
-    state: latest
-    name: "{{ item }}"
-  with_items:
-    "{{ install_package }}"
-  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
-
-- name: TWGCB-install-package
-  become: true
+- name: install-package
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
   yum:
-    state: latest
     name: "{{ item }}"
   with_items:
     "{{ install_package }}"
-  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"
+
+
+
+# - name: TWGCB-install-package OracleLinux-9
+#   become: true
+#   dnf:
+#     state: latest
+#     name: "{{ item }}"
+#   with_items:
+#     "{{ install_package }}"
+#   when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "9"
+
+# - name: TWGCB-install-package
+#   become: true
+#   yum:
+#     state: latest
+#     name: "{{ item }}"
+#   with_items:
+#     "{{ install_package }}"
+#   when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "7"

@@ -88,6 +88,6 @@ if [ -z "$BASHRCSOURCED" ]; then
 fi
 # TWGCB-01-008-0238
 readonly TMOUT=900 ; export TMOUT
-# TWGCB-01-008-0241
-umask 027
+# TWGCB-01-008-0241,TWGCB-01-003-0090
+umask 077
 # vim:ts=4:sw=4

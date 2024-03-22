@@ -1,0 +1,32 @@
+
+# 停用服務
+disable_packages_TWGCB_01_003:
+  - rhnsd # TWGCB-01-003-0007
+  - yum-updatesd # TWGCB-01-003-0008
+
+
+
+disable_packages:
+  - autofs # TWGCB-01-008-0030,TWGCB-01-003-0056
+
+disable_packages_TWGCB_01_008:
+  - rsyncd # TWGCB-01-008-0094
+  - avahi-daemon # TWGCB-01-008-0095
+  - squid # TWGCB-01-008-0097
+  - smb # TWGCB-01-008-0098
+  - vsftpd # TWGCB-01-008-0099
+  - ypserv # TWGCB-01-008-0100
+
+install_package:
+  - aide # TWGCB-01-008-0036,TWGCB-01-003-0011
+
+install_package_TWGCB_01_003:
+  - vlock
+
+install_package_TWGCB_01_008:
+  - sudo # TWGCB-01-008-0033
+  - audit # TWGCB-01-008-0132
+  - audit-libs # TWGCB-01-008-0132
+  - rsyslog # TWGCB-01-008-0185
+  - libselinux # TWGCB-01-008-0185
+  - kbd.x86_64 # TWGCB-01-008-0233

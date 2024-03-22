@@ -1,0 +1,95 @@
+- name: /etc/securetty RedHat6 TWGCB-01-003-0059,TWGCB-01-003-0060,TWGCB-01-003-0061,TWGCB-01-003-0062
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6"]
+  template:
+    owner: root
+    group: root
+    mode: 0600
+    dest: /etc/securetty
+    src: "{{ TWGCB_003_securetty_RedHat6 }}"
+
+- name: /etc/securetty RedHat7 TWGCB-01-003-0059,TWGCB-01-003-0060,TWGCB-01-003-0061,TWGCB-01-003-0062
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["7"]
+  template:
+    owner: root
+    group: root
+    mode: 0600
+    dest: /etc/securetty
+    src: "{{ TWGCB_003_securetty_RedHat7 }}"
+
+- name: /etc/pam.d/su
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/pam.d/su
+    src: "{{ su }}"
+
+
+- name: /etc/pam.d/system-auth
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/pam.d/system-auth
+    src: "{{ system_auth }}"
+
+- name: /etc/libuser.conf
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/libuser.conf
+    src: "{{ libuser_conf }}"
+
+- name: /etc/profile
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/profile
+    src: "{{ profile }}"
+
+- name: /etc/bashrc
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/profile
+    src: "{{ bashrc }}"
+
+- name: /etc/csh.cshrc
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/csh.cshrc
+    src: "{{ csh_cshrc }}"
+
+- name: /etc/sysconfig/init
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/sysconfig/init
+    src: "{{ sysconfig_init }}"
+
+- name: /etc/issue
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/issue
+    src: "{{ TWGCB_issue_RedHat6 }}"
+
+- name: TWGCB-01-003-0092 /boot/grub/grub.conf
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["6"]
+  become: true
+  file:
+    path: /boot/grub/grub.conf
+    mode: '0600' # TWGCB-01-003-0092
+    owner: root # TWGCB-01-003-0094
+    group: root # TWGCB-01-003-0093
+
