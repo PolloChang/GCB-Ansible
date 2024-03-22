@@ -10,3 +10,7 @@ csh_cshrc: csh.cshrc
 sysconfig_init: sysconfig-init
 TWGCB_003_issue_OracleLinux7: TWGCB-003-issue-OracleLinux7
 TWGCB_003_issue_RedHat6: TWGCB-003-issue-RedHat6
+TWGCB_003_useradd: TWGCB-003-useradd
+TWGCB_003_sudoers: TWGCB-003-sudoers
+TWGCB_003_autologout_csh: TWGCB-003-autologout.csh
+tmout_sh: tmout.sh

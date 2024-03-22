@@ -1,0 +1,5 @@
+#!/bin/bash
+## TWGCB-01-003-0112,TWGCB-01-008-0238
+TMOUT=900
+readonly TMOUT
+export TMOUT

@@ -1,0 +1,9 @@
+# useradd defaults file
+GROUP=100
+HOME=/home
+# TWGCB-01-003-0107
+INACTIVE=30
+EXPIRE=
+SHELL=/bin/bash
+SKEL=/etc/skel
+CREATE_MAIL_SPOOL=yes

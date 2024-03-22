@@ -35,6 +35,42 @@
     dest: /etc/pam.d/system-auth
     src: "{{ system_auth }}"
 
+- name: /etc/sudoers
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  template:
+    owner: root
+    group: root
+    mode: 0640
+    dest: /etc/sudoers
+    src: "{{ TWGCB_003_sudoers }}"
+
+- name: /etc/default/useradd
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/default/useradd
+    src: "{{ TWGCB_003_useradd }}"
+
+- name: /etc/profile.d/autologout.csh
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/profile.d/autologout.csh
+    src: "{{ TWGCB_003_autologout_csh }}"
+
+- name: /etc/profile.d/tmout.sh
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/profile.d/tmout.sh
+    src: "{{ TWGCB_003_autologout_csh }}"
+
+
 - name: /etc/libuser.conf
   when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
   template:

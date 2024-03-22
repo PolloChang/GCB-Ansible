@@ -3,7 +3,7 @@
 disable_packages_TWGCB_01_003:
   - rhnsd # TWGCB-01-003-0007
   - yum-updatesd # TWGCB-01-003-0008
-
+  - pam_ccreds # TWGCB-01-003-0105
 
 
 disable_packages:
