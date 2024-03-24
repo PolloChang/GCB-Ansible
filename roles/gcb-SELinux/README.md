@@ -1,5 +1,7 @@
 # SELinux
 
+* version: 1.0
+
 ## 手動處理項目
 
 ### TWGCB-01-003-0117: 標記為unlabeled_t的裝置檔案

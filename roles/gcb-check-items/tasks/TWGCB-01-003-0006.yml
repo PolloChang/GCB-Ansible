@@ -1,6 +1,0 @@
-
-- name: check TWGCB-01-003-0006 - 確認是否已安裝GPG金鑰
-  command: rpm -q --queryformat "%{SUMMARY}\n" gpg-pubkey
-  register: command_output
-- debug:
-    var: command_output.stdout_lines

@@ -27,6 +27,7 @@ install_package_TWGCB_01_003:
   - vlock
   - ipsec-tools # TWGCB-01-003-0143
   - irda-utils # TWGCB-01-003-0176
+
 install_package_TWGCB_01_008:
   - sudo # TWGCB-01-008-0033
   - audit # TWGCB-01-008-0132

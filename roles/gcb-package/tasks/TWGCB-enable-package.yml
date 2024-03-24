@@ -1,9 +1,85 @@
+- name: Debian Base version
+  when: ansible_distribution == "Debian"
+  block:
+  - name: enable_packages
+    ansible.builtin.systemctl:
+      name: "{{item}}"
+      enabled: on
+    with_items:
+      "{{ enable_packages }}"
+
 - name: RedHat Base version 6
   when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "6"
   block:
-    - name: enable_packages_TWGCB_01_003
-      ansible.builtin.service:
-        name: "{{item}}"
-        enabled: on
-      with_items:
-        "{{ enable_packages_TWGCB_01_003 }}"
+  - name: enable_packages
+    ansible.builtin.service:
+      name: "{{item}}"
+      enabled: on
+    with_items:
+      "{{ enable_packages }}"
+
+  - name: enable-packages-RedHat6
+    ansible.builtin.service:
+      name: "{{item}}"
+      enabled: on
+    with_items:
+      "{{ enable_packages_RedHat6 }}"
+
+  - name: enable_packages-TWGCB-01-003
+    ansible.builtin.service:
+      name: "{{item}}"
+      enabled: on
+    with_items:
+      "{{ enable_packages_TWGCB_01_003 }}"
+    
+- name: RedHat Base version 7
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "6"
+  block:
+  - name: enable_packages
+    ansible.builtin.systemd:
+      name: "{{item}}"
+      enabled: on
+    with_items:
+      "{{ enable_packages }}"
+
+  - name: enable-packages-RedHat7
+    ansible.builtin.systemd:
+      name: "{{item}}"
+      enabled: on
+    with_items:
+      "{{ enable_packages_RedHat7 }}"
+
+  - name: enable_packages-TWGCB-01-003
+    ansible.builtin.systemd:
+      name: "{{item}}"
+      enabled: on
+    with_items:
+      "{{ enable_packages_TWGCB_01_003 }}"
+    
+
+# - name: RedHat Base version 5 6 7
+#   when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+#   block:
+#   - name: enable_packages_TWGCB_01_003
+#     ansible.builtin.service:
+#       name: "{{item}}"
+#       enabled: on
+#     with_items:
+#       "{{ enable_packages_TWGCB_01_003 }}"
+    
+
+- name: RedHat Base version is no less than 8
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version | int >= 8
+  block:
+  - name: enable_packages
+    ansible.builtin.systemd:
+      name: "{{item}}"
+      enabled: on
+    with_items:
+      "{{ enable_packages }}"
+  - name: enable_packages_TWGCB_01_008
+    ansible.builtin.systemd:
+      name: "{{item}}"
+      enabled: on
+    with_items:
+      "{{ disable_packages_TWGCB_01_008 }}"

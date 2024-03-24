@@ -1,6 +1,0 @@
-
-- name: check TWGCB-01-003-0007
-  command: chkconfig --list | grep yum-updatesd
-  register: command_output
-- debug:
-    var: command_output.stdout_lines
