@@ -1,2 +1,12 @@
-# 檔案權限與遮罩
+# 基礎服務
 
+##
+
+### TWGCB-01-003-0177: 藍芽核心模組
+
+1. 編輯/etc/modprobe.conf檔案，新增或修改成以下內容：
+
+```conf
+alias net-pf-31 off
+alias bluetooth off
+```

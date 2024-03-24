@@ -1,0 +1,9 @@
+- name: RedHat Base version 6
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "6"
+  block:
+    - name: enable_packages_TWGCB_01_003
+      ansible.builtin.service:
+        name: "{{item}}"
+        enabled: on
+      with_items:
+        "{{ enable_packages_TWGCB_01_003 }}"

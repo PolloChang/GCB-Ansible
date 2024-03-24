@@ -1,0 +1,18 @@
+- name: /etc/selinux/config
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/selinux/config
+    src: "{{ selinux_config }}"
+
+- name: /etc/grub.conf
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["6"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/grub.conf
+    src: "{{ TWGCB_003_grub_RedHat6_conf }}"
+
+    

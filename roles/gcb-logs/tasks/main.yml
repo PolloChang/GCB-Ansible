@@ -1,0 +1,17 @@
+- name: /etc/logrotate.d/syslog
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5","6","7"]
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    dest: /etc/logrotate.d/syslog
+    src: "{{ syslog }}"
+
+- name: TWGCB-01-003-0145
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version in ["5"]
+  file:
+    owner: root
+    group: root
+    src: /usr/share/logwatch/scripts/logwatch.pl
+    dest: /etc/cron.daily/0logwatch
+    state: link

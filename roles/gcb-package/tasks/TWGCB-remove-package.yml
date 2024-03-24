@@ -1,0 +1,21 @@
+- name: TWGCB-removed-package in Debian
+  when: ansible_os_family == "Debian"
+  block:
+  
+  - name: TWGCB-removed-package
+    apt:
+      state: removed
+      name: "{{ item }}"
+    with_items:
+      "{{ removed_package }}"
+
+- name: TWGCB-removed-package in RedHat
+  when: ansible_os_family == "RedHat"
+  block:
+
+  - name: TWGCB-install-package
+    yum:
+      state: removed
+      name: "{{ item }}"
+    with_items:
+      "{{ removed_package }}"
